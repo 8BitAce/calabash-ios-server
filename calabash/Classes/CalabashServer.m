@@ -135,7 +135,14 @@
 		if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
 			[capabilities setObject:[[UIDevice currentDevice] uniqueIdentifier] forKey:@"uuid"];
 		}
-
+        
+        int portNum = [[info objectForKey:@"CalabashPort"] intValue];
+        if(portNum){
+            [_httpServer setPort:portNum];
+        } else {
+            [_httpServer setPort:37265];
+        }
+           
 		[_httpServer setTXTRecordDictionary:capabilities];
 		[_httpServer setConnectionClass:[LPRouter class]];
         [capabilities release];
